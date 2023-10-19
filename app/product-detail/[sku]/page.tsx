@@ -15,7 +15,6 @@ const ProductDetailPage = () => {
   const sku = pathName.split('/').slice(-1);
 
   const handleUpdateProduct = async (values: Product) => {
-    console.log('submitted values', values);
     try {
       const response = await fetch(
         `/api/product-detail/${pathName.split('/').slice(-1)}`,
@@ -43,9 +42,7 @@ const ProductDetailPage = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(`/api/product-detail/${sku}`);
-        console.log(response);
         const data = await response.json();
-        console.log(data);
         setProduct(data);
       } catch (error) {
         console.error('Error fetching product data:', error);

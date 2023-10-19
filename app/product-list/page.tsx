@@ -11,12 +11,10 @@ const ProductListPage = () => {
     const fetchData = async () => {
       try {
         const response = await fetch('/api/products');
-        console.log(response);
         const data = await response.json();
-        // console.log(data);
         setProductData(data.products);
       } catch (error) {
-        console.error('Error fetching house data:', error);
+        console.error('Error fetching product data:', error);
       }
     };
     fetchData();

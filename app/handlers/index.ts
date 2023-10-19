@@ -7,7 +7,6 @@ export const fetchProducts = async () => {
     'utf8'
   );
   const data = await JSON.parse(file);
-  console.log(data);
   return data;
 };
 
