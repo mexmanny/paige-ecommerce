@@ -1,9 +1,11 @@
-import React from 'react';
+import { FormProps } from '../types';
 
-type Props = {};
-
-const Form = (props: Props) => {
-  return <div>form</div>;
+const Form = ({ id, formRole, formLabel, onSubmit, children }: FormProps) => {
+  return (
+    <form id={id} role={formRole} aria-label={formLabel}>
+      {children}
+    </form>
+  );
 };
 
 export default Form;
