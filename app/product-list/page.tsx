@@ -46,12 +46,7 @@ const ProductListPage = () => {
           >
             <option value="">All Colors</option>
             {availableColors.map((color) => (
-              <option
-                key={color}
-                value={color}
-                className="color-circle-option"
-                style={{ backgroundColor: color }}
-              >
+              <option key={color} value={color}>
                 {color}
               </option>
             ))}

@@ -33,7 +33,6 @@ const ProductDetailPage = () => {
         console.error('Error updating product:', error);
       }
     } catch (error) {
-      // Handle network or other errors
       console.error('Error updating product:', error);
     }
   };
