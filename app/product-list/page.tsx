@@ -7,12 +7,24 @@ import ProductList from '../components/ProductList';
 const ProductListPage = () => {
   const [productdata, setProductData] = useState<Product[]>([]);
   const [colorFilterQuery, setColorFilterQuery] = useState('');
+  const [availableColors, setAvailableColors] = useState<string[]>([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch('/api/products');
         const data = await response.json();
         setProductData(data.products);
+        const uniqueColors = data.products.reduce(
+          (unique: string[], product: { color: string }) => {
+            if (!unique.includes(product.color)) {
+              unique.push(product.color);
+            }
+            return unique;
+          },
+          []
+        );
+
+        setAvailableColors(uniqueColors);
       } catch (error) {
         console.error('Error fetching product data:', error);
       }
@@ -24,15 +36,26 @@ const ProductListPage = () => {
       <form className="my-4 w-full flex justify-center">
         <label htmlFor="color_filter" className="block w-[300px] text-center">
           <span className="block">Filter by Color</span>
-          <input
+          <select
             id="color_filter"
             value={colorFilterQuery}
             className="w-[300px] text-black p-2 outline-none border-none rounded-sm my-4"
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+            onChange={(e: ChangeEvent<HTMLSelectElement>) => {
               setColorFilterQuery(e.target.value);
             }}
-            placeholder="Please enter a color to filter products by"
-          />
+          >
+            <option value="">All Colors</option>
+            {availableColors.map((color) => (
+              <option
+                key={color}
+                value={color}
+                className="color-circle-option"
+                style={{ backgroundColor: color }}
+              >
+                {color}
+              </option>
+            ))}
+          </select>
         </label>
       </form>
       {productdata.length > 0 ? (
